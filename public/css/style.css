@@ -1,0 +1,33 @@
+body{
+    background-image: url('http://waifu.clan.su/_ld/5/28248623.jpg');
+    background-size: cover;
+}
+.query-box{
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding-top: 350px;
+}
+.form-group{
+    display: block;
+}
+.form-text{
+    text-align: left;
+    font-weight: bolder;
+    font-size: 1.5rem;
+    color:white;
+}
+.mr-sm-2{
+    border-radius: 30px;
+}
+.champion-box{
+    max-width: 80vw;
+    height:80vh;
+    margin:0 auto;
+    overflow: visible;
+}
+.champion-icon{
+    margin:10px;
+    border:none;
+    padding:0;
+}

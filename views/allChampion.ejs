@@ -1,0 +1,62 @@
+<%- include("partials/header") %>
+
+
+<div class="champion-box overflow-auto">
+    <% for (const champion in champions){%>
+        <% const imgSrc = "http://ddragon.leagueoflegends.com/cdn/10.23.1/img/champion/"+champions[champion].id+".png";%>
+        <% const optionValue = champions[champion].id %>
+        
+        <button class = "champion-icon">
+            <% const imgId = champions[champion].id +"-icon" %>
+            <img src = <%=imgSrc%> id=<%=imgId%>>
+        </button>
+        <script>
+            document.getElementById('<%=imgId%>').addEventListener("click",()=>{
+                //check if this is already in
+                if('<%=champions[champion].id%>' in selected){
+                    console.log('<%=champions[champion].id%>'+" is popped");
+                    delete selected['<%=champions[champion].id%>'];
+                }else{
+                    //check if there's too many
+                    if(Object.keys(selected).length>=5){
+                        console.log("Remove some champions before you can select others.");
+                    }else{
+                        console.log('<%=champions[champion].id%>'+" is pushed!");
+                        selected['<%=champions[champion].id%>']=undefined;
+                        if(Object.keys(selected).length===5){
+                            document.getElementById("champion-selection-submit").disabled=false;
+                            console.log("Object keys");
+                            console.log(Object.keys(selected));
+                            console.log("Before value:");
+                            console.log(document.getElementById("championSelection").value);
+                            console.log("The selected now is : ")
+                            document.getElementById("championSelection").setAttribute("value",Object.keys(selected));
+                            console.log("After value:");
+                            console.log(document.getElementById("championSelection").value);
+                            console.log("Ready!");
+                        }
+                    }
+
+                }
+                console.log(selected);
+            });
+        </script>
+    
+    <%}%>
+    <!--After for loop-->
+    <script>
+        const selected = {};
+    </script>
+
+</div>
+<div>
+    <form method="post">
+        <input type="hidden" id="championSelection" name="championSelection" value="">
+        <button type="submit" id="champion-selection-submit"disabled="true">submit</button>
+    </form>
+</div>
+
+
+
+
+<%- include("partials/footer") %>
