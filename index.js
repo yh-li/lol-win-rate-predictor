@@ -7,7 +7,7 @@ const app = express();
 const champions = require("./public/champions.json");
 const winrate = require("./winrate");
 
-const API_KEY = "RGAPI-2ee422d4-786a-44a1-996a-f1cf7da672a0";
+const API_KEY = require("./api");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 app.set("view engine", "ejs");

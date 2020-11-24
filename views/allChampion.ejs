@@ -16,6 +16,7 @@
                 if('<%=champions[champion].id%>' in selected){
                     console.log('<%=champions[champion].id%>'+" is popped");
                     delete selected['<%=champions[champion].id%>'];
+                    document.getElementById("champion-selection-submit").disabled=true;
                 }else{
                     //check if there's too many
                     if(Object.keys(selected).length>=5){
