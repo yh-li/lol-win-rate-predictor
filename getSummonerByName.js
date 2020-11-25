@@ -8,6 +8,7 @@ const getSummonerByName = (summoner)=>{
         userInfo.then((user) => {
             resolve(user);
         }).catch(err => {
+            console.log("Error from getting user.");
             reject(err);
         });
     });

@@ -28,12 +28,16 @@ app.route("/")
             summoner = user;
             return getMatchList(user,req.body.champion);
         }).then((matchList) => {
-            console.log(summoner);
             return winrate(matchList,summoner);
         }).then((winrate) => {
-            res.send(String(winrate));
+            if (isNaN(winrate)) {
+                res.send("No games found...");
+            } else {
+                res.send(String(winrate));
+            }
+            
         }).catch((err) => {
-            res.send(String(err));
+            res.render("404");
             console.log(err);
         });
         //send the get request to get the encrypted account id
@@ -47,26 +51,34 @@ app.route("/all-champions")
         //now parse it
         const selectedChampions = req.body.championSelection.split(',');
         console.log(selectedChampions);
-        //next check win rates
-        const winRates = [0.5, 0.5, 0.5, 0.5, 0.5];
-        const predictedWinRate = 0.5;
+        const testUser = "mahoniafortunei"
         //test using my account
-        
-        const testAccount = "mahoniafortunei"
-        const eID_URL = "https://na1.api.riotgames.com/lol/summoner/v4/summoners/by-name/" +
-            testAccount + "?api_key=" + API_KEY;
-        //send the get request to get the encrypted account id
-        https.get(eID_URL, (response) => {
-            const preq = {};
-            preq["body"] = {};
-            preq.body["champion"] = selectedChampions[0];
-            preq.body["summoner"] = testAccount;
-            console.log(preq.body.champion);
-            checkRecord(response, preq, res);
-        });
-        //res.send("Your predicted win rate is "+String(predictedWinRate));
-    });
 
+        const summoner = getSummonerByName(testUser);
+        summoner.then((user) => {
+            const winRatePromises = []
+            selectedChampions.forEach((champion) => {
+                winRatePromises.push(getMatchList(user, champion).then((matchList) => {
+                    return winrate(matchList, user);
+                }));
+            });
+            Promise.all(winRatePromises).then((values) => {
+                console.log(values);
+            }).catch((err) => {
+                console.log(err);
+            });
+        }).catch((err) => {
+            console.log(err);
+        });
+ });
+
+
+
+
+app.use(function(req, res, next) {
+    res.status(404);
+    res.render('404');
+});
 app.listen(3000, () => {
     console.log("Index is running on port 3000.");
   });

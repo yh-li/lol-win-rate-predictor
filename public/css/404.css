@@ -1,0 +1,10 @@
+body{
+    background-image: url('https://universe-meeps.leagueoflegends.com/v1/assets/images/void-an-unknowable-power.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+h1{
+    text-align: center;
+    padding-top:40vh;
+    color:white;
+}

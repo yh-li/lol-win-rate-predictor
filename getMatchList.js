@@ -19,7 +19,15 @@ const getMatchList = (summoner, champion) => {
         matches.then((matchRecords) => {
             resolve(matchRecords);
         }).catch((err) => {
-            reject(err);
+            
+            if (err.message.endsWith("404")) {
+                console.log("Empty Match Records.");
+                resolve("");
+            } else {
+                console.log("Error from getting the match list.");
+                reject(err);
+            }
+            
         })
     });
 };

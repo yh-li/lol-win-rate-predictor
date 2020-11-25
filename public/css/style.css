@@ -1,6 +1,8 @@
 body{
     background-image: url('http://waifu.clan.su/_ld/5/28248623.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
+    text-align: center;
 }
 .query-box{
     text-align: center;
@@ -21,13 +23,52 @@ body{
     border-radius: 30px;
 }
 .champion-box{
-    max-width: 80vw;
+    max-width: 1000px;
     height:80vh;
     margin:0 auto;
     overflow: visible;
+    text-align: left;
 }
-.champion-icon{
-    margin:10px;
+
+.champion-button{
+    margin:20px;
     border:none;
     padding:0;
+    outline:none;
+}
+.champion-icon{
+    outline:none;
+    filter:contrast(50%);
+}
+
+.champion-icon:hover{
+    -moz-box-shadow: 0 0 10px #ccc;
+    -webkit-box-shadow: 0 0 10px #ccc;
+    box-shadow: 0 0 10px #ccc;
+}
+.selected-champion{
+    outline:none;
+    filter:contrast(100%);
+}
+#champion-selection-submit{
+    margin-top:10px;
+}
+.intro-msg{
+    text-align: center;
+    color:#ec5858;    
+    margin-top:30px;
+    text-shadow: 2px 2px #FDCFDF;
+}
+
+body::-webkit-scrollbar {
+    width: 1em;
+}
+   
+body::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+   
+body::-webkit-scrollbar-thumb {
+    background-color: darkgrey;
+    outline: 1px solid slategrey;
 }

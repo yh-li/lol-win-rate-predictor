@@ -1,20 +1,21 @@
 <%- include("partials/header") %>
 
-
+<h1 class="intro-msg">Build your team here:</h1>
 <div class="champion-box overflow-auto">
     <% for (const champion in champions){%>
         <% const imgSrc = "http://ddragon.leagueoflegends.com/cdn/10.23.1/img/champion/"+champions[champion].id+".png";%>
         <% const optionValue = champions[champion].id %>
         
-        <button class = "champion-icon">
+        <button class = "champion-button">
             <% const imgId = champions[champion].id +"-icon" %>
-            <img src = <%=imgSrc%> id=<%=imgId%>>
+            <img class="champion-icon" src = <%=imgSrc%> id=<%=imgId%>>
         </button>
         <script>
             document.getElementById('<%=imgId%>').addEventListener("click",()=>{
                 //check if this is already in
                 if('<%=champions[champion].id%>' in selected){
-                    console.log('<%=champions[champion].id%>'+" is popped");
+                    document.getElementById('<%=imgId%>').classList.toggle("selected-champion");
+                    console.log('<%=champions[champion].id%>'+" is deselected.");
                     delete selected['<%=champions[champion].id%>'];
                     document.getElementById("champion-selection-submit").disabled=true;
                 }else{
@@ -22,24 +23,17 @@
                     if(Object.keys(selected).length>=5){
                         console.log("Remove some champions before you can select others.");
                     }else{
-                        console.log('<%=champions[champion].id%>'+" is pushed!");
+                        document.getElementById('<%=imgId%>').classList.toggle("selected-champion");
+                        console.log('<%=champions[champion].id%>'+" is selected.");
                         selected['<%=champions[champion].id%>']=undefined;
                         if(Object.keys(selected).length===5){
                             document.getElementById("champion-selection-submit").disabled=false;
-                            console.log("Object keys");
-                            console.log(Object.keys(selected));
-                            console.log("Before value:");
-                            console.log(document.getElementById("championSelection").value);
-                            console.log("The selected now is : ")
                             document.getElementById("championSelection").setAttribute("value",Object.keys(selected));
-                            console.log("After value:");
-                            console.log(document.getElementById("championSelection").value);
-                            console.log("Ready!");
+                            
                         }
                     }
 
                 }
-                console.log(selected);
             });
         </script>
     
@@ -53,7 +47,7 @@
 <div>
     <form method="post">
         <input type="hidden" id="championSelection" name="championSelection" value="">
-        <button type="submit" id="champion-selection-submit"disabled="true">submit</button>
+        <button type="submit" class="btn btn-success" id="champion-selection-submit"disabled="true">Next</button>
     </form>
 </div>
 
